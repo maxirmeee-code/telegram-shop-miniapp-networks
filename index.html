@@ -25,9 +25,21 @@
       font-size: 1.2em;
       margin-bottom: 30px;
     }
+    .order-num {
+      font-size: 2.4em;
+      font-weight: bold;
+      color: #25D366;
+      background: rgba(37, 211, 102, 0.15);
+      padding: 20px;
+      border-radius: 20px;
+      border: 3px solid #25D366;
+      margin: 30px auto;
+      max-width: 90%;
+      box-shadow: 0 0 20px rgba(37, 211, 102, 0.4);
+    }
     .btn {
       display: block;
-      margin: 18px auto;
+      margin: 20px auto;
       padding: 20px;
       background: #25D366;
       color: white;
@@ -43,27 +55,41 @@
       transform: translateY(-3px);
       box-shadow: 0 8px 25px rgba(37,211,102,0.5);
     }
-    .telegram {
-      background: #229ED9;
-    }
-    .snap {
-      background: #FFFC00;
-      color: black;
-    }
+    .telegram { background: #229ED9; }
+    .snap { background: #FFFC00; color: black; }
   </style>
 </head>
 <body>
   <h1>Commande reçue !</h1>
-  <p>Contacte-nous ici et dit nous quel est ton panier :</p>
 
-  <!-- BOUTON TELEGRAM (CHANGE LE LIEN ICI) -->
+  <!-- NUMÉRO DE COMMANDE (s’affiche automatiquement) -->
+  <div class="order-num" id="orderDisplay">
+    Ton numéro de panier : <br><span id="orderCode">#CMD-XXXXXX-XXXX</span>
+  </div>
+
+  <p>Envoie ce numéro avec ton panier sur Telegram ou Snapchat :</p>
+
+  <!-- BOUTON TELEGRAM -->
   <a href="https://t.me/six2shop" class="btn telegram">
     Telegram
   </a>
 
-  <!-- BOUTON SNAPCHAT (déjà là) -->
+  <!-- BOUTON SNAPCHAT -->
   <a href="https://snapchat.com/t/6vFB8aOc" class="btn snap">
     Snapchat
   </a>
+
+  <!-- SCRIPT QUI LIT LE NUMÉRO DANS L’URL -->
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const order = params.get('order');
+    if (order) {
+      document.getElementById('orderCode').textContent = order;
+      document.title = `Commande ${order} - six2 SHOP`;
+    } else {
+      document.getElementById('orderDisplay').innerHTML = 
+        "<span style='color:#ff6b6b;'>Aucun numéro détecté</span><br><small>(Tu viens directement ?)</small>";
+    }
+  </script>
 </body>
 </html>
